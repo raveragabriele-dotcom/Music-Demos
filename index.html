@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="it" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DEMOs - Audio Showcase</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#eef2ff',
+                            100: '#e0e7ff',
+                            500: '#6366f1',
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                            900: '#312e81',
+                            accent: '#10b981',
+                        },
+                        darkbg: '#0a0a0c',
+                        cardbg: 'rgba(18, 18, 24, 0.75)'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #09090b;
+            color: #f4f4f5;
+        }
+
+        /* Glassmorphism custom styling */
+        .glass-card {
+            background: rgba(22, 22, 29, 0.65);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .glass-card:hover {
+            border-color: rgba(99, 102, 241, 0.4);
+            box-shadow: 0 10px 30px -10px rgba(99, 102, 241, 0.2);
+        }
+
+        .glass-nav {
+            background: rgba(10, 10, 12, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Waveform Animation bars */
+        .wave-bar {
+            transition: height 0.2s ease, background-color 0.2s ease;
+        }
+
+        .playing .wave-bar {
+            animation: pulseWave 1.2s infinite ease-in-out alternate;
+        }
+
+        @keyframes pulseWave {
+            0% { transform: scaleY(0.3); }
+            100% { transform: scaleY(1.1); }
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0a0a0c;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #27272a;
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #3f3f46;
+        }
+    </style>
+</head>
+<body class="min-h-screen pb-32 pt-8 px-4 sm:px-6 flex flex-col items-center selection:bg-brand-500 selection:text-white">
+
+    <main class="w-full max-w-xl mx-auto flex flex-col items-center">
+        
+        <!-- Profile Header Section -->
+        <header class="w-full text-center flex flex-col items-center mb-8">
+            <!-- Avatar Container with Glow Effect -->
+            <div class="relative group mb-4">
+                <div class="absolute -inset-0.5 bg-gradient-to-r from-brand-500 to-emerald-500 rounded-full blur opacity-50 group-hover:opacity-80 transition duration-500"></div>
+                <div class="relative w-28 h-28 rounded-full overflow-hidden border-2 border-white/20 bg-zinc-900 flex items-center justify-center shadow-2xl">
+                    <!-- Placeholder SVG Avatar or Image -->
+                    <svg class="w-14 h-14 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 .895-2 3-2 3 .895 3 2zm12 0c0 1.105-1.343 2-3 2s-3-.895-3-2 .895-2 3-2 3 .895 3 2zM9 10l12-3"></path>
+                    </svg>
+                </div>
+                <!-- Status indicator -->
+                <span class="absolute bottom-1 right-1 w-5 h-5 bg-emerald-500 border-2 border-darkbg rounded-full" title="In Studio - Creating New Demos"></span>
+            </div>
+
+            <!-- Title & Bio -->
+            <h1 class="text-3xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-white via-zinc-200 to-zinc-400">
+                DEMOs
+            </h1>
+            <p class="text-xs font-semibold uppercase tracking-widest text-brand-500 mt-1 mb-2">Music Producer / Sound Designer</p>
+            <p class="text-sm text-zinc-400 max-w-sm text-center font-normal px-2">
+                Bozze, esperimenti sonori e tracce non rilasciate. Ascolta in anteprima i miei ultimi progetti audio.
+            </p>
+
+            <!-- Social Links / Badges -->
+            <div class="flex items-center gap-3 mt-5">
+                <!-- Instagram -->
+                <a href="#" target="_blank" aria-label="Instagram" class="p-2.5 rounded-full glass-card text-zinc-300 hover:text-white hover:scale-110 transition duration-200">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                </a>
+                <!-- Spotify -->
+                <a href="#" target="_blank" aria-label="Spotify" class="p-2.5 rounded-full glass-card text-zinc-300 hover:text-emerald-400 hover:scale-110 transition duration-200">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141 C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.18-1.2-.161-1.38-.719-.18-.6.18-1.2.72-1.38 4.26-1.26 11.28-1.02 15.72 1.62.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
+                </a>
+                <!-- SoundCloud -->
+                <a href="#" target="_blank" aria-label="SoundCloud" class="p-2.5 rounded-full glass-card text-zinc-300 hover:text-orange-400 hover:scale-110 transition duration-200">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M1.175 12.225c-.053 0-.088.044-.088.097v5.278c0 .062.035.097.088.097h.619c.053 0 .088-.035.088-.097v-5.278c0-.053-.035-.097-.088-.097h-.619zm1.381-1.398c-.053 0-.088.044-.088.097v6.676c0 .062.035.097.088.097h.628c.053 0 .088-.035.088-.097v-6.676c0-.053-.035-.097-.088-.097h-.628zm1.389-1.035c-.053 0-.088.044-.088.097v7.711c0 .062.035.097.088.097h.628c.053 0 .088-.035.088-.097V9.889c0-.053-.035-.097-.088-.097h-.628zm1.389-.806c-.053 0-.088.044-.088.097v8.517c0 .062.035.097.088.097h.628c.053 0 .088-.035.088-.097V9.083c0-.053-.035-.097-.088-.097h-.628zm1.389-.531c-.053 0-.088.044-.088.097v9.048c0 .062.035.097.088.097h.628c.053 0 .088-.035.088-.097V8.649c0-.053-.035-.097-.088-.097h-.628zm1.389-.177c-.053 0-.088.044-.088.097v9.225c0 .062.035.097.088.097h.628c.053 0 .088-.035.088-.097V8.472c0-.053-.035-.097-.088-.097h-.628zm1.389-.088c-.053 0-.088.044-.088.097v9.313c0 .062.035.097.088.097h.628c.053 0 .088-.035.088-.097V8.384c0-.053-.035-.097-.088-.097h-.628zm1.389.177c-.053 0-.088.044-.088.097v9.136c0 .062.035.097.088.097h.628c.053 0 .088-.035.088-.097V8.561c0-.053-.035-.097-.088-.097h-.628zm1.389.442c-.053 0-.088.044-.088.097v8.694c0 .062.035.097.088.097h.628c.053 0 .088-.035.088-.097V9.003c0-.053-.035-.097-.088-.097h-.628zm11.239 1.638c-.372 0-.735.053-1.079.15-.318-2.619-2.548-4.655-5.257-4.655-.841 0-1.637.195-2.354.54-.071.035-.097.088-.097.15v10.743c0 .062.035.097.088.097h8.699c2.301 0 4.168-1.867 4.168-4.168 0-2.301-1.867-4.168-4.168-4.168z"/></svg>
+                </a>
+                <!-- Email -->
+                <button onclick="copyToClipboard('producer.contact@demo.com')" aria-label="Copy Email" class="p-2.5 rounded-full glass-card text-zinc-300 hover:text-brand-500 hover:scale-110 transition duration-200" title="Copia Email">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                </button>
+            </div>
+        </header>
+
+        <!-- Search and Filter Bar -->
+        <section class="w-full mb-6 space-y-3">
+            <div class="relative w-full">
+                <input type="text" id="searchInput" oninput="filterTracks()" placeholder="Cerca demo o genere..." 
+                    class="w-full py-2.5 pl-10 pr-4 rounded-xl bg-zinc-900/80 border border-zinc-800 text-sm text-zinc-200 placeholder-zinc-500 focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition">
+                <svg class="w-4 h-4 text-zinc-500 absolute left-3.5 top-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+            </div>
+
+            <!-- Tags Filter pills -->
+            <div class="flex items-center gap-2 overflow-x-auto pb-1 text-xs no-scrollbar">
+                <button onclick="filterByTag('all')" class="tag-btn active px-3 py-1.5 rounded-lg bg-brand-600 text-white font-medium transition">Tutti</button>
+                <button onclick="filterByTag('WIP')" class="tag-btn px-3 py-1.5 rounded-lg bg-zinc-800 text-zinc-400 hover:text-white transition">#WIP</button>
+                <button onclick="filterByTag('Synthwave')" class="tag-btn px-3 py-1.5 rounded-lg bg-zinc-800 text-zinc-400 hover:text-white transition">#Synthwave</button>
+                <button onclick="filterByTag('Lo-Fi')" class="tag-btn px-3 py-1.5 rounded-lg bg-zinc-800 text-zinc-400 hover:text-white transition">#Lo-Fi</button>
+                <button onclick="filterByTag('Rough Mix')" class="tag-btn px-3 py-1.5 rounded-lg bg-zinc-800 text-zinc-400 hover:text-white transition">#RoughMix</button>
+            </div>
+        </section>
+
+        <!-- Track list Container -->
+        <section id="trackList" class="w-full flex flex-col gap-4">
+            <!-- Track items will be dynamically generated by JS for better management -->
+        </section>
+
+    </main>
+
+    <!-- Sticky Bottom Player Bar -->
+    <div id="playerBar" class="fixed bottom-0 left-0 right-0 glass-nav p-3 sm:px-8 flex flex-col sm:flex-row items-center justify-between gap-3 translate-y-full transition-transform duration-300 z-50">
+        <div class="flex items-center gap-3 w-full sm:w-auto">
+            <!-- Thumbnail / Playing Icon -->
+            <div id="playerArt" class="w-11 h-11 rounded-lg bg-brand-900 border border-brand-500/30 flex items-center justify-center shrink-0">
+                <svg class="w-6 h-6 text-brand-500 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 .895-2 3-2 3 .895 3 2zm12 0c0 1.105-1.343 2-3 2s-3-.895-3-2 .895-2 3-2 3 .895 3 2zM9 10l12-3"></path></svg>
+            </div>
+            <div class="min-w-0 flex-1">
+                <h4 id="playerTitle" class="text-sm font-semibold text-white truncate">Nessuna traccia in riproduzione</h4>
+                <p id="playerArtist" class="text-xs text-zinc-400 truncate">DEMOs Track</p>
+            </div>
+        </div>
+
+        <!-- Controls & Scrubber -->
+        <div class="flex flex-col items-center gap-1 w-full sm:w-1/2 max-w-md">
+            <div class="flex items-center gap-4">
+                <button onclick="playPreviousTrack()" class="text-zinc-400 hover:text-white transition" aria-label="Previous Track">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg>
+                </button>
+                <button id="globalPlayBtn" onclick="toggleGlobalPlay()" class="w-9 h-9 rounded-full bg-brand-500 hover:bg-brand-600 text-white flex items-center justify-center transition shadow-lg" aria-label="Play/Pause">
+                    <svg class="w-5 h-5 ml-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                </button>
+                <button onclick="playNextTrack()" class="text-zinc-400 hover:text-white transition" aria-label="Next Track">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M16 18h2V6h-2zM6 18l8.5-6L6 6z"/></svg>
+                </button>
+            </div>
+
+            <!-- Progress Bar -->
+            <div class="flex items-center gap-2 w-full text-[11px] text-zinc-400 font-mono">
+                <span id="currentTime">0:00</span>
+                <input type="range" id="progressBar" min="0" max="100" value="0" oninput="seekTrack(this.value)" class="w-full h-1 bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-brand-500">
+                <span id="durationTime">0:00</span>
+            </div>
+        </div>
+
+        <!-- Volume / Extra Controls -->
+        <div class="hidden sm:flex items-center gap-2 w-32">
+            <svg class="w-4 h-4 text-zinc-400 shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>
+            <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="0.8" oninput="setVolume(this.value)" class="w-full h-1 bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-brand-500">
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed top-5 right-5 glass-card px-4 py-2.5 rounded-xl border border-brand-500/30 text-xs font-medium text-white shadow-xl translate-y-[-150%] transition-transform duration-300 flex items-center gap-2 z-50">
+        <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+        <span id="toastMsg">Link copiato negli appunti!</span>
+    </div>
+
+    <script>
+        // Track list data array
+        const tracks = [
+            {
+                id: 1,
+                title: "Demo #01 - Midnight Drift",
+                subtitle: "Atmospheric Synthwave Draft",
+                genre: "Synthwave",
+                tag: "WIP",
+                duration: 135, // in seconds
+                bpm: "110 BPM",
+                key: "A Minor",
+                notes: "Bozza creata con Prophet synth. Pensata per una scena notturna. Manca ancora il lavoro sul basso synth e la masterizzazione finale.",
+                bars: [30, 45, 60, 80, 55, 90, 70, 40, 65, 85, 100, 75, 50, 60, 80, 95, 70, 50, 40, 60, 85, 90, 65, 40]
+            },
+            {
+                id: 2,
+                title: "Demo #02 - Analog Waves",
+                subtitle: "Rough Mix - Electronic Beat",
+                genre: "Electronic",
+                tag: "Rough Mix",
+                duration: 182,
+                bpm: "124 BPM",
+                key: "F# Minor",
+                notes: "Mixaggio ancora grezzo. Ho provato dei campionamenti analogici dal Tape Echo. Suggerimenti sui drums sono benvenuti!",
+                bars: [20, 50, 75, 40, 60, 80, 95, 70, 85, 60, 40, 70, 90, 100, 80, 60, 45, 75, 85, 60, 30, 50, 70, 40]
+            },
+            {
+                id: 3,
+                title: "Demo #03 - Velvet Beats",
+                subtitle: "Lo-Fi Chill Hop Idea",
+                genre: "Lo-Fi",
+                tag: "Lo-Fi",
+                duration: 108,
+                bpm: "85 BPM",
+                key: "C Major",
+                notes: "Progetto rilassante con piano elettrico scordato e vinile crepitante in sottofondo. Perfetto per un interlude.",
+                bars: [40, 30, 50, 45, 60, 55, 70, 65, 50, 40, 55, 60, 50, 45, 65, 70, 50, 40, 35, 45, 50, 40, 30, 20]
+            },
+            {
+                id: 4,
+                title: "Demo #04 - Synth Experiment v2",
+                subtitle: "Modular Distortion Test",
+                genre: "Synthwave",
+                tag: "WIP",
+                duration: 154,
+                bpm: "128 BPM",
+                key: "D Minor",
+                notes: "Test con modulare euro-rack. Suono aggressivo ed energetico con arpeggiatore continuo.",
+                bars: [60, 80, 95, 100, 85, 90, 75, 85, 95, 100, 90, 80, 85, 95, 100, 85, 70, 90, 95, 80, 60, 70, 85, 50]
+            }
+        ];
+
+        // State variables
+        let currentTrackIndex = -1;
+        let isPlaying = false;
+        let audioContext = null;
+        let oscillator = null;
+        let gainNode = null;
+        let playInterval = null;
+        let currentProgress = 0; // seconds
+        let filterTag = 'all';
+
+        function renderTracks() {
+            const trackListEl = document.getElementById('trackList');
+            const searchQuery = document.getElementById('searchInput').value.toLowerCase();
+            
+            trackListEl.innerHTML = '';
+
+            const filteredTracks = tracks.filter(track => {
+                const matchesSearch = track.title.toLowerCase().includes(searchQuery) || 
+                                     track.genre.toLowerCase().includes(searchQuery) ||
+                                     track.tag.toLowerCase().includes(searchQuery);
+                const matchesTag = filterTag === 'all' || track.tag === filterTag || track.genre === filterTag;
+                return matchesSearch && matchesTag;
+            });
+
+            if (filteredTracks.length === 0) {
+                trackListEl.innerHTML = `
+                    <div class="text-center py-10 text-zinc-500 text-sm">
+                        Nessuna demo trovata con questi criteri.
+                    </div>
+                `;
+                return;
+            }
+
+            filteredTracks.forEach((track) => {
+                const isCurrent = tracks[currentTrackIndex]?.id === track.id;
+                const isTrackPlaying = isCurrent && isPlaying;
+
+                const card = document.createElement('div');
+                card.className = `glass-card rounded-2xl p-4 transition-all duration-300 relative overflow-hidden group ${isTrackPlaying ? 'border-brand-500/60 bg-zinc-900/90' : ''}`;
+                
+                // Build Waveform SVG/Bars
+                const waveBarsHtml = track.bars.map(height => `
+                    <div class="wave-bar w-1 bg-zinc-700/60 rounded-full" style="height: ${height}%;"></div>
+                `).join('');
+
+                card.innerHTML = `
+                    <div class="flex flex-col gap-3">
+                        <!-- Top Row: Info + Play Button -->
+                        <div class="flex items-center justify-between gap-3">
+                            <div class="flex items-center gap-3 min-w-0">
+                                <button onclick="toggleTrackPlay(${track.id})" class="w-12 h-12 rounded-xl ${isTrackPlaying ? 'bg-brand-500 text-white' : 'bg-zinc-800 text-zinc-200 group-hover:bg-brand-600 group-hover:text-white'} flex items-center justify-center shrink-0 transition-colors shadow-md">
+                                    ${isTrackPlaying ? 
+                                        `<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>` : 
+                                        `<svg class="w-5 h-5 ml-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>`
+                                    }
+                                </button>
+                                <div class="min-w-0">
+                                    <div class="flex items-center gap-2">
+                                        <h3 class="text-sm font-bold text-white truncate">${track.title}</h3>
+                                        <span class="px-2 py-0.5 rounded text-[10px] font-semibold tracking-wide uppercase bg-brand-500/20 text-brand-400 border border-brand-500/30">${track.tag}</span>
+                                    </div>
+                                    <p class="text-xs text-zinc-400 truncate mt-0.5">${track.subtitle}</p>
+                                </div>
+                            </div>
+
+                            <!-- Duration / Copy Link -->
+                            <div class="flex items-center gap-2 shrink-0">
+                                <span class="text-xs font-mono text-zinc-400">${formatTime(track.duration)}</span>
+                                <button onclick="copyTrackLink('${track.title}')" aria-label="Copy Track Link" class="p-2 text-zinc-400 hover:text-white transition rounded-lg hover:bg-zinc-800" title="Copia Link Demo">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Waveform Visualization -->
+                        <div class="h-10 w-full flex items-center justify-between gap-1 px-1 bg-zinc-950/40 rounded-lg ${isTrackPlaying ? 'playing' : ''}">
+                            ${waveBarsHtml}
+                        </div>
+
+                        <!-- Bottom Meta Info & Details Accordion Toggle -->
+                        <div class="flex items-center justify-between text-[11px] text-zinc-400 pt-1 border-t border-white/5">
+                            <div class="flex items-center gap-3">
+                                <span>🎵 ${track.genre}</span>
+                                <span>⚡ ${track.bpm}</span>
+                                <span>🎹 ${track.key}</span>
+                            </div>
+                            <button onclick="toggleNotes(${track.id})" class="text-brand-400 hover:underline font-medium flex items-center gap-1">
+                                Note
+                                <svg id="arrow-${track.id}" class="w-3 h-3 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </button>
+                        </div>
+
+                        <!-- Expandable Drawer Notes -->
+                        <div id="notes-${track.id}" class="hidden text-xs text-zinc-300 bg-zinc-900/80 p-3 rounded-xl mt-1 border border-zinc-800/80 leading-relaxed">
+                            <p class="font-semibold text-zinc-400 mb-1">Note del Produttore:</p>
+                            ${track.notes}
+                        </div>
+                    </div>
+                `;
+                trackListEl.appendChild(card);
+            });
+        }
+
+        // Simulated Audio Engine using Web Audio API synth tone generation
+        function initAudio() {
+            if (!audioContext) {
+                const AudioCtx = window.AudioContext || window.webkitAudioContext;
+                audioContext = new AudioCtx();
+            }
+            if (audioContext.state === 'suspended') {
+                audioContext.resume();
+            }
+        }
+
+        function playSynthTone() {
+            if (!audioContext) return;
+            try {
+                if (oscillator) oscillator.stop();
+                oscillator = audioContext.createOscillator();
+                gainNode = audioContext.createGain();
+
+                // Generate pleasant harmonic chord frequency based on track id
+                const baseFreq = 180 + (tracks[currentTrackIndex].id * 45);
+                oscillator.type = 'triangle';
+                oscillator.frequency.setValueAtTime(baseFreq, audioContext.currentTime);
+
+                gainNode.gain.setValueAtTime(0.08, audioContext.currentTime);
+
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+
+                oscillator.start();
+            } catch (e) {
+                console.log("Audio simulation fallback", e);
+            }
+        }
+
+        function stopSynthTone() {
+            if (oscillator) {
+                try {
+                    oscillator.stop();
+                } catch(e) {}
+                oscillator = null;
+            }
+        }
+
+        // Play/Pause Controller logic
+        function toggleTrackPlay(id) {
+            initAudio();
+            const index = tracks.findIndex(t => t.id === id);
+
+            if (currentTrackIndex === index) {
+                // Toggle current track state
+                isPlaying = !isPlaying;
+            } else {
+                // Switch to new track
+                currentTrackIndex = index;
+                currentProgress = 0;
+                isPlaying = true;
+            }
+
+            updateAudioPlayback();
+        }
+
+        function updateAudioPlayback() {
+            const track = tracks[currentTrackIndex];
+            const playerBar = document.getElementById('playerBar');
+
+            if (isPlaying && track) {
+                playerBar.classList.remove('translate-y-full');
+                document.getElementById('playerTitle').textContent = track.title;
+                document.getElementById('playerArtist').textContent = `${track.genre} • ${track.bpm}`;
+                document.getElementById('durationTime').textContent = formatTime(track.duration);
+
+                playSynthTone();
+                startProgressTimer();
+            } else {
+                stopSynthTone();
+                clearInterval(playInterval);
+            }
+
+            updatePlayerUI();
+            renderTracks();
+        }
+
+        function toggleGlobalPlay() {
+            if (currentTrackIndex === -1) {
+                currentTrackIndex = 0;
+                isPlaying = true;
+            } else {
+                isPlaying = !isPlaying;
+            }
+            updateAudioPlayback();
+        }
+
+        function playNextTrack() {
+            if (tracks.length === 0) return;
+            currentTrackIndex = (currentTrackIndex + 1) % tracks.length;
+            currentProgress = 0;
+            isPlaying = true;
+            updateAudioPlayback();
+        }
+
+        function playPreviousTrack() {
+            if (tracks.length === 0) return;
+            currentTrackIndex = (currentTrackIndex - 1 + tracks.length) % tracks.length;
+            currentProgress = 0;
+            isPlaying = true;
+            updateAudioPlayback();
+        }
+
+        function startProgressTimer() {
+            clearInterval(playInterval);
+            playInterval = setInterval(() => {
+                if (!isPlaying || currentTrackIndex === -1) return;
+
+                currentProgress++;
+                const track = tracks[currentTrackIndex];
+
+                if (currentProgress >= track.duration) {
+                    playNextTrack();
+                    return;
+                }
+
+                document.getElementById('currentTime').textContent = formatTime(currentProgress);
+                const progressPercent = (currentProgress / track.duration) * 100;
+                document.getElementById('progressBar').value = progressPercent;
+            }, 1000);
+        }
+
+        function seekTrack(value) {
+            if (currentTrackIndex === -1) return;
+            const track = tracks[currentTrackIndex];
+            currentProgress = Math.floor((value / 100) * track.duration);
+            document.getElementById('currentTime').textContent = formatTime(currentProgress);
+        }
+
+        function setVolume(val) {
+            if (gainNode) {
+                gainNode.gain.setValueAtTime(val * 0.1, audioContext.currentTime);
+            }
+        }
+
+        function updatePlayerUI() {
+            const globalPlayBtn = document.getElementById('globalPlayBtn');
+            if (isPlaying) {
+                globalPlayBtn.innerHTML = `<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>`;
+            } else {
+                globalPlayBtn.innerHTML = `<svg class="w-5 h-5 ml-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>`;
+            }
+        }
+
+        function toggleNotes(id) {
+            const notesEl = document.getElementById(`notes-${id}`);
+            const arrowEl = document.getElementById(`arrow-${id}`);
+            if (notesEl.classList.contains('hidden')) {
+                notesEl.classList.remove('hidden');
+                arrowEl.classList.add('rotate-180');
+            } else {
+                notesEl.classList.add('hidden');
+                arrowEl.classList.remove('rotate-180');
+            }
+        }
+
+        function filterTracks() {
+            renderTracks();
+        }
+
+        function filterByTag(tag) {
+            filterTag = tag;
+            document.querySelectorAll('.tag-btn').forEach(btn => {
+                if (btn.textContent.includes(tag) || (tag === 'all' && btn.textContent === 'Tutti')) {
+                    btn.className = 'tag-btn active px-3 py-1.5 rounded-lg bg-brand-600 text-white font-medium transition';
+                } else {
+                    btn.className = 'tag-btn px-3 py-1.5 rounded-lg bg-zinc-800 text-zinc-400 hover:text-white transition';
+                }
+            });
+            renderTracks();
+        }
+
+        function copyTrackLink(title) {
+            copyToClipboard(`${window.location.origin}/#${encodeURIComponent(title)}`);
+            showToast(`Link per "${title}" copiato!`);
+        }
+
+        function copyToClipboard(text) {
+            const dummy = document.createElement('input');
+            document.body.appendChild(dummy);
+            dummy.value = text;
+            dummy.select();
+            document.execCommand('copy');
+            document.body.removeChild(dummy);
+            showToast('Copiato negli appunti!');
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toastMsg').textContent = message;
+            toast.classList.remove('translate-y-[-150%]');
+            setTimeout(() => {
+                toast.classList.add('translate-y-[-150%]');
+            }, 2500);
+        }
+
+        function formatTime(seconds) {
+            const mins = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+        }
+
+        // Initialize App on DOM Load
+        window.onload = function() {
+            renderTracks();
+        };
+    </script>
+</body>
+</html>
